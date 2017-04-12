@@ -1,3 +1,5 @@
+[![Build Status](https://api.travis-ci.org/repositories/gvaldambrini/react-simple-boilerplate.svg)](https://travis-ci.org/gvaldambrini/react-simple-boilerplate)
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 On the top of CRA, it adds:
