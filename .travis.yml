@@ -10,3 +10,6 @@ script:
   - npm test
   - npm run build
   - npm run lint
+
+before_script:
+  npm rebuild node-sass
