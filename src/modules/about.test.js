@@ -15,7 +15,7 @@ beforeEach(() => {
   nock.cleanAll();
 });
 
-test("fetch contributors with success", done => {
+test("fetch contributors with success", async () => {
   const data = [
     {
       login: "gvaldambrini",
@@ -34,13 +34,11 @@ test("fetch contributors with success", done => {
   const store = mockStore();
   const expectedActions = [testing.fetchContributorsSuccess(data)];
 
-  return store.dispatch(fetchContributors()).then(() => {
-    expect(store.getActions()).toEqual(expectedActions);
-    done();
-  });
+  await store.dispatch(fetchContributors());
+  expect(store.getActions()).toEqual(expectedActions);
 });
 
-test("fetch contributors with error", done => {
+test("fetch contributors with error", async () => {
   const u = new URL(testing.repo_url);
   nock(u.origin)
     .defaultReplyHeaders({ "access-control-allow-origin": "*" })
@@ -50,10 +48,8 @@ test("fetch contributors with error", done => {
   const store = mockStore();
   const expectedActions = [testing.fetchContributorsFailure("Unable to fetch")];
 
-  return store.dispatch(fetchContributors()).then(() => {
-    expect(store.getActions()).toEqual(expectedActions);
-    done();
-  });
+  await store.dispatch(fetchContributors());
+  expect(store.getActions()).toEqual(expectedActions);
 });
 
 test("handle the fetchContributorsSuccess action", () => {

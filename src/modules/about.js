@@ -25,14 +25,18 @@ function fetchContributorsFailure(errmessage) {
 }
 
 export function fetchContributors() {
-  return dispatch => {
-    return fetch(`${REPO_URL}/contributors`)
-      .then(response => {
-        if (!response.ok) throw new Error("Unable to fetch");
-        return response.json();
-      })
-      .then(contributors => dispatch(fetchContributorsSuccess(contributors)))
-      .catch(error => dispatch(fetchContributorsFailure(error.message)));
+  return async dispatch => {
+    const response = await fetch(`${REPO_URL}/contributors`);
+    if (!response.ok) {
+      return dispatch(fetchContributorsFailure("Unable to fetch"));
+    }
+
+    try {
+      const contributors = await response.json();
+      dispatch(fetchContributorsSuccess(contributors));
+    } catch (error) {
+      dispatch(fetchContributorsFailure(error.message));
+    }
   };
 }
 
