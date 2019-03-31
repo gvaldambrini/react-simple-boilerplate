@@ -10,4 +10,10 @@ On the top of CRA, it adds:
  - a travis integration
  - Storybook
 
- The filesystem structure follows the [redux ducks proposal](https://github.com/erikras/ducks-modular-redux).
+
+ The filesystem structure is the following:
+ - src
+   - components, the "dumb" components
+   - containers, the redux HOC
+   - modules, the redux modules following the [ducks proposal](https://github.com/erikras/ducks-modular-redux)
+ - scripts, with a simple cli to create the scaffoling for "dumb" components.

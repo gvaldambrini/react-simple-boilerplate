@@ -22,7 +22,8 @@
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
     "format": "prettier --write 'src/**/*.{js,scss}'",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "create-component": "node scripts/create-component.js"
   },
   "eslintConfig": {
     "extends": "react-app"
