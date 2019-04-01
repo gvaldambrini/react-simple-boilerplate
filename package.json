@@ -17,6 +17,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "analyze-bundle": "react-scripts build --stats && webpack-bundle-analyzer build/bundle-stats.json -m static -r build/bundle-stats.html -O",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
@@ -40,7 +41,6 @@
     "@storybook/addon-links": "^5.0.2",
     "@storybook/addons": "^5.0.2",
     "@storybook/react": "^5.0.2",
-    "storybook-react-router": "^1.0.4",
     "babel-loader": "^8.0.5",
     "eslint-config-prettier": "^4.1.0",
     "eslint-plugin-prettier": "^3.0.1",
@@ -48,6 +48,8 @@
     "eslint-plugin-react-hooks": "^1.6.0",
     "nock": "^10.0.6",
     "prettier": "^1.16.4",
-    "redux-mock-store": "^1.5.3"
+    "redux-mock-store": "^1.5.3",
+    "storybook-react-router": "^1.0.4",
+    "webpack-bundle-analyzer": "^3.1.0"
   }
 }
