@@ -1,9 +1,15 @@
 import React, { useEffect } from "react";
-import PropTypes from "prop-types";
 
+import { Contributor } from "../../models";
 import styles from "./About.module.scss";
 
-const About = props => {
+interface Props {
+  loaded: boolean;
+  fetchContributors: () => void;
+  contributors: ReadonlyArray<Contributor>;
+}
+
+const About: React.FunctionComponent<Props> = props => {
   const { loaded, fetchContributors } = props;
   useEffect(() => {
     if (!loaded) fetchContributors();
@@ -33,12 +39,6 @@ const About = props => {
       <div>{contributors}</div>
     </div>
   );
-};
-
-About.propTypes = {
-  fetchContributors: PropTypes.func.isRequired,
-  contributors: PropTypes.array.isRequired,
-  loaded: PropTypes.bool.isRequired
 };
 
 export default About;

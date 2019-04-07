@@ -1,3 +1,4 @@
+import { Action } from "redux";
 import reducer, { increment, getCounter } from "./counter";
 
 test("handle the increment action without value", () => {
@@ -17,7 +18,8 @@ test("handle the increment action with a value", () => {
 });
 
 test("handle an unknown action", () => {
-  const newState = reducer();
+  const action: Action = { type: "fake" };
+  const newState = reducer(undefined, action);
   expect(newState.counter).toEqual(0);
 });
 

@@ -5,13 +5,15 @@ import {
   contributorsLoaded
 } from "../modules/about";
 
+import { GlobalState } from "../modules";
+
 import About from "../components/About";
 
 const mapDispatchToProps = {
   fetchContributors
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: GlobalState) => {
   return {
     contributors: getContributors(state),
     loaded: contributorsLoaded(state)

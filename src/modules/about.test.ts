@@ -1,15 +1,18 @@
+import { Action } from "redux";
 import configureMockStore from "redux-mock-store";
 import thunk from "redux-thunk";
-const nock = require("nock");
-
 import reducer, {
   fetchContributors,
   getContributors,
   contributorsLoaded,
   testing
 } from "./about";
+import nock from "nock";
 
 const mockStore = configureMockStore([thunk]);
+
+// As the tests contain mocked json data, turn off the camelcase rule.
+/* eslint-disable @typescript-eslint/camelcase */
 
 beforeEach(() => {
   nock.cleanAll();
@@ -25,7 +28,7 @@ test("fetch contributors with success", async () => {
     }
   ];
 
-  const u = new URL(testing.repo_url);
+  const u = new URL(testing.repoUrl);
   nock(u.origin)
     .defaultReplyHeaders({ "access-control-allow-origin": "*" })
     .get(`${u.pathname}/contributors`)
@@ -39,7 +42,7 @@ test("fetch contributors with success", async () => {
 });
 
 test("fetch contributors with error", async () => {
-  const u = new URL(testing.repo_url);
+  const u = new URL(testing.repoUrl);
   nock(u.origin)
     .defaultReplyHeaders({ "access-control-allow-origin": "*" })
     .get(`${u.pathname}/contributors`)
@@ -97,7 +100,8 @@ test("handle the fetchContributorsFailure action", () => {
 });
 
 test("handle an unknown action", () => {
-  const newState = reducer();
+  const action: Action = { type: "fake" };
+  const newState = reducer(undefined, action);
   expect(newState.contributors).toEqual([]);
   expect(newState.loaded).toEqual(false);
 });
