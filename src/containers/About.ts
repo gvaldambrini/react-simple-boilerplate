@@ -13,12 +13,10 @@ const mapDispatchToProps = {
   fetchContributors
 };
 
-const mapStateToProps = (state: GlobalState) => {
-  return {
-    contributors: getContributors(state),
-    loaded: contributorsLoaded(state)
-  };
-};
+const mapStateToProps = (state: GlobalState): object => ({
+  contributors: getContributors(state),
+  loaded: contributorsLoaded(state)
+});
 
 export default connect(
   mapStateToProps,

@@ -6,12 +6,12 @@ import styles from "./About.module.scss";
 interface Props {
   loaded: boolean;
   fetchContributors: () => void;
-  contributors: ReadonlyArray<Contributor>;
+  contributors: Contributor[];
 }
 
 const About: React.FunctionComponent<Props> = props => {
   const { loaded, fetchContributors } = props;
-  useEffect(() => {
+  useEffect((): void => {
     if (!loaded) fetchContributors();
   }, [loaded, fetchContributors]);
 
@@ -19,19 +19,21 @@ const About: React.FunctionComponent<Props> = props => {
     return null;
   }
 
-  const contributors = props.contributors.map(el => (
-    <div key={el.username} className={styles.contributor}>
-      <img src={el.avatar} alt="" />
-      <div>
-        <a href={el.url}>{el.username}</a>
-        <div className={styles.commits}>
-          {el.contributions > 1
-            ? `${el.contributions} commits`
-            : `${el.contributions} commit`}
+  const contributors = props.contributors.map(
+    (el): JSX.Element => (
+      <div key={el.username} className={styles.contributor}>
+        <img src={el.avatar} alt="" />
+        <div>
+          <a href={el.url}>{el.username}</a>
+          <div className={styles.commits}>
+            {el.contributions > 1
+              ? `${el.contributions} commits`
+              : `${el.contributions} commit`}
+          </div>
         </div>
       </div>
-    </div>
-  ));
+    )
+  );
 
   return (
     <div className={styles.about}>

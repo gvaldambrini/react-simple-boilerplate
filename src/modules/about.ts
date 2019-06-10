@@ -1,4 +1,5 @@
 import { Dispatch, Action, AnyAction } from "redux";
+import { ThunkAction } from "redux-thunk";
 import { Contributor, RawContributor } from "../models";
 
 // ------------------------------------
@@ -6,8 +7,7 @@ import { Contributor, RawContributor } from "../models";
 
 export const MODULE_KEY = "about";
 
-const REPO_URL =
-  "https://api.github.com/repos/facebook/create-react-app";
+const REPO_URL = "https://api.github.com/repos/facebook/create-react-app";
 
 const CONTRIBUTORS_FETCH_SUCCESS = "about/CONTRIBUTORS_FETCH_SUCCESS";
 const CONTRIBUTORS_FETCH_FAILURE = "about/CONTRIBUTORS_FETCH_FAILURE";
@@ -38,11 +38,19 @@ function fetchContributorsFailure(errmessage: string): ActionFailure {
   };
 }
 
-export function fetchContributors() {
-  return async (dispatch: Dispatch<ActionSuccess | ActionFailure>) => {
+export function fetchContributors(): ThunkAction<
+  void,
+  AnyState,
+  void,
+  AnyAction
+> {
+  return async (
+    dispatch: Dispatch<ActionSuccess | ActionFailure>
+  ): Promise<void> => {
     const response = await fetch(`${REPO_URL}/contributors`);
     if (!response.ok) {
-      return dispatch(fetchContributorsFailure("Unable to fetch"));
+      dispatch(fetchContributorsFailure("Unable to fetch"));
+      return;
     }
 
     try {
@@ -63,7 +71,7 @@ interface AnyState {
 }
 
 interface AboutState {
-  readonly contributors: ReadonlyArray<Contributor>;
+  readonly contributors: Contributor[];
   readonly loaded: boolean;
 }
 
@@ -72,9 +80,7 @@ interface AboutState {
 
 const local = (state: AnyState): AboutState => state[MODULE_KEY];
 
-export const getContributors = (
-  state: AnyState
-): ReadonlyArray<Contributor> => {
+export const getContributors = (state: AnyState): Contributor[] => {
   return local(state).contributors;
 };
 
@@ -99,7 +105,7 @@ export default function reducer(
       return {
         ...state,
         contributors: action.payload.map(
-          (el: RawContributor) => new Contributor(el)
+          (el: RawContributor): Contributor => new Contributor(el)
         ),
         loaded: true
       };

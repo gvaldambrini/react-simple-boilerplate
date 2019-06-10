@@ -40,9 +40,7 @@ module.exports = {
       "no-useless-constructor": "error",
       "prefer-const": "error",
       "max-depth": "error",
-      // Disable the explicit function return type until the pr gets integrated:
-      // https://github.com/typescript-eslint/typescript-eslint/issues/149
-      "@typescript-eslint/explicit-function-return-type": ["off", {
+      "@typescript-eslint/explicit-function-return-type": ["error", {
         "allowTypedFunctionExpressions": true
       }],
       "react/no-string-refs": "error",

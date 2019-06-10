@@ -14,11 +14,11 @@ const mockStore = configureMockStore([thunk]);
 // As the tests contain mocked json data, turn off the camelcase rule.
 /* eslint-disable @typescript-eslint/camelcase */
 
-beforeEach(() => {
+beforeEach((): void => {
   nock.cleanAll();
 });
 
-test("fetch contributors with success", async () => {
+test("fetch contributors with success", async (): Promise<void> => {
   const data = [
     {
       login: "gvaldambrini",
@@ -41,7 +41,7 @@ test("fetch contributors with success", async () => {
   expect(store.getActions()).toEqual(expectedActions);
 });
 
-test("fetch contributors with error", async () => {
+test("fetch contributors with error", async (): Promise<void> => {
   const u = new URL(testing.repoUrl);
   nock(u.origin)
     .defaultReplyHeaders({ "access-control-allow-origin": "*" })
@@ -55,7 +55,7 @@ test("fetch contributors with error", async () => {
   expect(store.getActions()).toEqual(expectedActions);
 });
 
-test("handle the fetchContributorsSuccess action", () => {
+test("handle the fetchContributorsSuccess action", (): void => {
   const initialState = {
     contributors: [],
     loaded: false
@@ -85,7 +85,7 @@ test("handle the fetchContributorsSuccess action", () => {
   expect(newState.loaded).toEqual(true);
 });
 
-test("handle the fetchContributorsFailure action", () => {
+test("handle the fetchContributorsFailure action", (): void => {
   const initialState = {
     contributors: [],
     loaded: false
@@ -99,14 +99,14 @@ test("handle the fetchContributorsFailure action", () => {
   expect(newState.loaded).toEqual(true);
 });
 
-test("handle an unknown action", () => {
+test("handle an unknown action", (): void => {
   const action: Action = { type: "fake" };
   const newState = reducer(undefined, action);
   expect(newState.contributors).toEqual([]);
   expect(newState.loaded).toEqual(false);
 });
 
-test("get the contributors", () => {
+test("get the contributors", (): void => {
   const aboutState = {
     contributors: [
       {
@@ -124,7 +124,7 @@ test("get the contributors", () => {
   );
 });
 
-test("check if contributors are loaded", () => {
+test("check if contributors are loaded", (): void => {
   const aboutState = {
     contributors: [],
     loaded: true

@@ -10,7 +10,7 @@ const COUNTER_INCREMENT = "counter/COUNTER_INCREMENT";
 // ------------------------------------
 // Action creators
 
-interface ActionIncrement extends Action {
+export interface ActionIncrement extends Action {
   payload: number;
 }
 
